@@ -88,6 +88,28 @@
 		// Increment the call counter
 		this.call_count++;
 	};
+
+	/***********************************************************************************
+	 * Setup our resolution extra items
+	 ***********************************************************************************/
+	_V_.ResolutionExtraMenuItem = _V_.MenuItem.extend({
+		init : function( player, options ){
+
+			// Call the parent constructor
+			_V_.MenuItem.call( this, player, options );
+			
+			// Store the event_name as a property
+			this.event_name = options.event_name;
+
+			// Register our click and tap handlers
+			this.on( ['click', 'tap'], this.onClick );
+		}
+	});
+	_V_.ResolutionExtraMenuItem.prototype.onClick = function() {
+		if ( this.event_name ) {
+			this.player().trigger(this.event_name);
+		}
+	};
 	
 	/***********************************************************************************
 	 * Setup our resolution menu title item
@@ -168,13 +190,13 @@
 		});
 
 		// Add an item for each extra link
-		for ( extra_link in this.extra_links ) {
-			var menuItem = new _V_.MenuItem( player, {
-				label: extra_link.name
+		var extra_links = this.options().extra_links;
+		for ( var i=0; i<extra_links.length; i++ ) {
+			var extra_link = extra_links[i];
+			var menuItem = new _V_.ResolutionExtraMenuItem( player, {
+				label: extra_link.name,
+				event_name: extra_link.event
 			});
-			menuItem.onClick = function onClick() {
-				player.trigger(extra_link.event);
-			};
 			items.push( menuItem );
 		}
 		
@@ -389,7 +411,8 @@
 		// Add the resolution selector button
 		resolutionSelector = new _V_.ResolutionSelector( player, {
 			buttonText		: player.localize( current_res || 'Quality' ),
-			available_res	: available_res
+			available_res	: available_res,
+			extra_links		: settings.extra_links
 		});
 		
 		// Add the button to the control bar object and the DOM

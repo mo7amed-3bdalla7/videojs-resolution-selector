@@ -4,8 +4,8 @@
 	<title>Video.js | Resolution Selector Plugin</title>
 	
 	<!-- Load Video.js core components -->
-	<link href="//vjs.zencdn.net/4.5/video-js.css" rel="stylesheet" />
-	<script src="//vjs.zencdn.net/4.5/video.js"></script>
+	<link href="https://vjs.zencdn.net/4.11.4/video-js.css" rel="stylesheet" />
+	<script src="https://vjs.zencdn.net/4.11.4/video.js"></script>
 	
 	<!-- Load the plugin -->
 	<link href="video-quality-selector.css" rel="stylesheet" type="text/css" />
@@ -18,15 +18,15 @@
 	
 	<!-- This video has no data-setup attribute and needs to be initialized manually -->
 	<video id="example" class="video-js vjs-default-skin" controls width="640" height="360">
-		<source src="video-360.mp4" type="video/mp4" data-res="360" />
-		<source src="video-480.mp4" type="video/mp4" data-res="480" />
+		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="360" />
+		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="480" />
 	</video>
 	
 	<!-- This video has a data-setup attribute and will be initialized by video.js automatically -->
-	<video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
-		<source src="video-360.mp4" type="video/mp4" data-res="360" />
-		<source src="video-480.mp4" type="video/mp4" data-res="480" />
-	</video>
+	<!-- <video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
+		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="360" />
+		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="480" />
+	</video> -->
 	
 	<script type="text/javascript">
 		
@@ -43,7 +43,13 @@
 		videojs( '#example', { plugins : { resolutionSelector : {
 			
 			// Pass any options here
-			default_res : '480'
+			default_res : '480',
+			extra_links : [
+                {
+                    "name": "Download lecture",
+                    "event": "downloadlecture"
+                }
+            ]
 		
 		// Define an on.ready function
 		} } }, function() {
@@ -56,6 +62,13 @@
 				
 				// player.getCurrentRes() can be used to get the currently selected resolution
 				console.log( 'Current Res is: ' + player.getCurrentRes() );
+			});
+
+			// Listen to an extra event
+			player.on( 'downloadlecture', function() {
+				
+				// player.getCurrentRes() can be used to get the currently selected resolution
+				console.log( 'Download lecture is working' );
 			});
 		});
 		

@@ -166,6 +166,17 @@
 				return parseInt( b.resolution ) - parseInt( a.resolution );
 			}
 		});
+
+		// Add an item for each extra link
+		for ( extra_link in this.extra_links ) {
+			var menuItem = new _V_.MenuItem( player, {
+				label: extra_link.name
+			});
+			menuItem.onClick = function onClick() {
+				player.trigger(extra_link.event);
+			};
+			items.push( menuItem );
+		}
 		
 		return items;
 	};
@@ -191,7 +202,8 @@
 			settings = _V_.util.mergeOptions({
 				
 				default_res	: '',		// (string)	The resolution that should be selected by default ( '480' or  '480,1080,240' )
-				force_types	: false		// (array)	List of media types. If passed, we need to have source for each type in each resolution or that resolution will not be an option
+				force_types	: false,	// (array)	List of media types. If passed, we need to have source for each type in each resolution or that resolution will not be an option
+				extra_links : []		// (array)  List of extra links. Each link is an object {"name": name of the link, "event": name of the event to trigger on click}.
 				
 			}, options || {} ),
 			

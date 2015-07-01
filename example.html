@@ -23,10 +23,12 @@
 	</video>
 	
 	<!-- This video has a data-setup attribute and will be initialized by video.js automatically -->
-	<!-- <video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
+	<!--
+	<video id="example-2" class="video-js vjs-default-skin" controls width="640" height="360" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "480" } } }'>
 		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="360" />
 		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" data-res="480" />
-	</video> -->
+	</video>
+	-->
 	
 	<script type="text/javascript">
 		
@@ -45,11 +47,11 @@
 			// Pass any options here
 			default_res : '480',
 			extra_links : [
-                {
-                    "name": "Download lecture",
-                    "event": "downloadlecture"
-                }
-            ]
+				{
+					"name": "Download lecture",
+					"event": "downloadlecture"
+				}
+			]
 		
 		// Define an on.ready function
 		} } }, function() {
@@ -67,7 +69,6 @@
 			// Listen to an extra event
 			player.on( 'downloadlecture', function() {
 				
-				// player.getCurrentRes() can be used to get the currently selected resolution
 				console.log( 'Download lecture is working' );
 			});
 		});
